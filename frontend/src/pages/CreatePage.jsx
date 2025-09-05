@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ArrowLeftRightIcon } from "lucide-react";
+import { ArrowLeftIcon } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-hot-toast";
@@ -21,6 +21,7 @@ function CreatePage() {
 
     try {
       await api.post("/message", {
+        //use api instead of axios to include the baseURL and api endpoint
         title,
         content,
       });

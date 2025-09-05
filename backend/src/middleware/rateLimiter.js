@@ -7,7 +7,6 @@ const rateLimiter = async (req, res, next) => {
     if (!success) {
       return res
         .status(429)
-        .set("Retry-After", "60")
         .json({ message: "Too many requests, please try again later." });
     }
     next();
@@ -18,3 +17,29 @@ const rateLimiter = async (req, res, next) => {
 };
 
 export default rateLimiter;
+// -------
+// import { Ratelimit } from "@upstash/ratelimit";
+// import { Redis } from "@upstash/redis";
+
+// const redis = new Redis({
+//   url: process.env.UPSTASH_REDIS_REST_URL,
+//   token: process.env.UPSTASH_REDIS_REST_TOKEN,
+// });
+
+// const ratelimit = new Ratelimit({
+//   redis,
+//   limiter: Ratelimit.slidingWindow(100, "60 s"),
+// });
+
+// export default async function rateLimiter(req, res, next) {
+//   try {
+//     const limit = await ratelimit.limit(req.ip); // using IP as key
+//     if (!limit.success) {
+//       return res.status(429).json({ message: "Too many requests" });
+//     }
+//     next();
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// }
