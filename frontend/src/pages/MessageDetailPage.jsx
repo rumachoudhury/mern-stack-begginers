@@ -19,7 +19,7 @@ const MessageDetailPage = () => {
   useEffect(() => {
     const fetchMessage = async () => {
       try {
-        const res = await api.get(`/messages/${id}`);
+        const res = await api.get(`/message/${id}`);
         setMessages(res.data);
       } catch (error) {
         console.log("Error in fetching message", error);
@@ -37,7 +37,7 @@ const MessageDetailPage = () => {
       return;
 
     try {
-      await api.delete(`/messages/${id}`);
+      await api.delete(`/message/${id}`);
       toast.success("Message deleted");
       navigate("/");
     } catch (error) {
@@ -55,7 +55,7 @@ const MessageDetailPage = () => {
     setSaving(true);
 
     try {
-      await api.put(`/messages/${id}`, message);
+      await api.put(`/message/${id}`, message);
       toast.success("Message updated successfully");
       navigate("/");
     } catch (error) {
