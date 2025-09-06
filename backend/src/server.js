@@ -32,21 +32,23 @@ app.use(rateLimiter);
 
 app.use("/api/message", messageRoutes);
 
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-if (process.env.NODE_ENV === "production") {
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-  });
-}
-// Use absolute path from project root
-// app.use(express.static(path.resolve("frontend/dist")));
+// app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 // if (process.env.NODE_ENV === "production") {
 //   app.get("*", (req, res) => {
-//     res.sendFile(path.resolve("frontend/dist/index.html"));
+//     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
 //   });
 // }
+
+// Serve frontend build
+const frontendPath = path.join(__dirname, "../frontend/dist");
+app.use(express.static(frontendPath));
+
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
+  });
+}
 
 //First connect to DB then start the server and this is good practice because if DB connection fails server will not start
 connectDB().then(() => {
