@@ -32,24 +32,6 @@ app.use(rateLimiter);
 
 app.use("/api/message", messageRoutes);
 
-// app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-// if (process.env.NODE_ENV === "production") {
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-//   });
-// }
-
-// Serve frontend build
-// const frontendPath = path.join(__dirname, "../frontend/dist");
-// app.use(express.static(frontendPath));
-
-// if (process.env.NODE_ENV === "production") {
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.join(frontendPath, "index.html"));
-//   });
-// }
-
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 if (process.env.NODE_ENV === "production") {
